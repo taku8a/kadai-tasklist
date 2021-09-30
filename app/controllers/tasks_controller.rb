@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only:[:show,:edit,:update,:destroy]
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy, :create, :edit, :update, :show]
   
 
   def index
@@ -25,7 +25,7 @@ class TasksController < ApplicationController
          flash[:success]="Task投稿完了"
          redirect_to root_url
       else
-          @pagy,@tasks = pagy(current_user.tasks.order(id: :desc))
+          
           flash.now[:danger]="Taskが投稿されませんでした"
           render :new
           
